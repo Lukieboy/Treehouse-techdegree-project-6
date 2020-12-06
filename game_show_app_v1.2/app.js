@@ -39,7 +39,7 @@ function addPhraseToDisplay(arr){
         if(arr[i] !== ' '){
             li.className = 'letter';
         }else{
-            li.style.margin = '0 20px 0 20px';
+            li.className = 'space';
         }
     }
 }
@@ -49,6 +49,7 @@ addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 //checks it the letter button clicked = the letter clicked then adds the show class to the letter
 //if not adds o1 to missed and removes a heart
 function checkLetter(button){
+    button.disabled = true;
     const letter = document.querySelectorAll('li');
     let letterFound = false;
     for(let i = 0; i<letter.length; i++){
@@ -79,18 +80,20 @@ function checkWin() {
     if(missed<5){
         if(liClassLetter.length === liClassShow.length){
             overlay.className = 'win';
+            const a = document.querySelector('a');
             score++;
             p.textContent = 'You Win! Click below to play again! Your current score is ' + score;
             overlay.appendChild(p);
-            overlay.insertBefore(p, a);
             overlay.style.display = 'flex';
+            overlay.removeChild(a);
         }
     }else if(missed >= 5){
         overlay.className = 'lose';
+        const a = document.querySelector('a');
         p.textContent = 'You Lose! Click below to play again! Your current score is ' + score;
         overlay.appendChild(p);
-        overlay.insertBefore(p, a);
         overlay.style.display = 'flex';
+        overlay.removeChild(a);
     }
 }
 
